@@ -5,7 +5,6 @@ if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
 
-
 # User specific aliases and functions
 PATH=$HOME/usr/bin:$HOME/bin:$PATH
 
@@ -13,31 +12,14 @@ export SVN_EDITOR=vim
 
 export PATH
 
-export PERL5LIB=/home/mf5137/workspace/tracker/jstracker/install/lib/perl5:/home/mf5137/workspace/tracker/trackitha/install/lib/perl5:/home/mf5137/workspace/owapro/lib:$HOME/usr/lib/perl5/5.8.8:$HOME/usr/lib/perl5/site_perl:$PERL5LIB
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-
 export INPUTRC=~/.inputrc
 
 ##########################
-
-#export PERL_LOCAL_LIB_ROOT="/home/mf5137/perl5";
-#export PERL_MB_OPT="--install_base /home/mf5137/perl5";
-#export PERL_MM_OPT="INSTALL_BASE=/home/mf5137/perl5";
-#export PERL5LIB="/home/mf5137/perl5/lib/perl5/i386-linux-thread-multi:/home/mf5137/perl5/lib/perl5:$PERL5LIB";
-#export PATH="/home/mf5137/perl5/bin:$PATH";
-
-##############################
 
 # ~/.bashrc: executed by bash(1) for non-login shells. see /usr/share/doc/bash/examples/startup-files (in the package bash-doc) for examples
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
-
-# add local bin path
-PATH=$HOME/.bin:$PATH
-PATH=/usr/local/bin:$PATH
-PATH=/usr/local/sbin:$PATH
-PATH=/usr/local/mysql/bin:$PATH
 
 # don't put duplicate lines in the history
 export HISTCONTROL=ignoreboth,erasedups
@@ -53,6 +35,22 @@ shopt -s checkwinsize
 shopt -s cdspell
 # save all lines of a multiple-line command in the same history entry (allows easy re-editing of multi-line commands)
 shopt -s cmdhist
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    #alias dir='dir --color=auto'
+    #alias vdir='vdir --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+# https://gist.github.com/btd/5999664
+# https://github.com/bitemyapp/dotfiles/blob/master/.bashrc
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 # setup color variables
 color_is_on=
@@ -129,8 +127,8 @@ fi
 
 # calculate prompt length
 local PS1_length=$((${#USER}+${#HOSTNAME}+${#PWDNAME}+${#PS1_GIT}+${#PS1_VENV}+3))
-local FILL=
 
+local FILL=
 # if length is greater, than terminal width
 if [[ $PS1_length -gt $COLUMNS ]]; then
 # strip working directory name
@@ -138,7 +136,7 @@ PWDNAME="...${PWDNAME:$(($PS1_length-$COLUMNS+3))}"
 else
 # else calculate fillsize
 local fillsize=$(($COLUMNS-$PS1_length))
-FILL=$color_gray
+#FILL=$color_gray
 while [[ $fillsize -gt 0 ]]; do FILL="${FILL}─"; fillsize=$(($fillsize-1)); done
 FILL="${FILL}${color_off}"
 fi

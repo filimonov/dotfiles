@@ -11,6 +11,3 @@ PATH=$PATH:$HOME/bin
 PATH=$PATH:$HOME/.local/bin
 
 export PATH
-#export JRUBY_INVOCATION="$HOME/.rvm/bin/jruby-1.6.5"
-
-

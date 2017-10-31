@@ -1,4 +1,4 @@
-" To run with utf-8, besides below option set, screen must be run with -U option
+# To run with utf-8, besides below option set, screen must be run with -U option
 defutf8 on
 
 

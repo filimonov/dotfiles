@@ -1,0 +1,32 @@
+[user]
+name = mf5137
+email = mf5137@hurra.com
+
+[alias]
+st = status
+co = checkout
+ci = commit
+br = branch
+lsd = log --graph --decorate --pretty=oneline --abbrev-commit --all
+
+accept-ours = "!f() { files=\"$@\"; [ -z $files ] && files='.'; git checkout --ours -- $files; git add -u $files; }; f"
+accept-theirs = "!f() { files=\"$@\"; [ -z $files ] && files='.'; git checkout --theirs -- $files; git add -u $files; }; f"
+
+[apply]
+whitespace = nowarn
+
+[color]
+diff = auto
+interactive = auto
+status = auto
+branch = auto
+
+[core]
+excludesfile = /home/mf5137/.gitignore
+editor = /usr/bin/vim
+
+[diff]
+tool = meld
+
+[rerere]
+enabled = true
